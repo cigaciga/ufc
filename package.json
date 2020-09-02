@@ -1,0 +1,24 @@
+{
+  "name": "ufc",
+  "version": "1.0.0",
+  "description": "TBC Bank payment service client",
+  "main": "ufc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cigaciga/ufc.git"
+  },
+  "keywords": [
+    "tbc",
+    "bank",
+    "payments"
+  ],
+  "author": "ciga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cigaciga/ufc/issues"
+  },
+  "homepage": "https://github.com/cigaciga/ufc#readme"
+}
