@@ -24,8 +24,8 @@ let config = {
   language: "GE",
   //Transaction currency code ISO code format
   currency: "981",
-  //Transaction description code ISO code format
-  description: config.description,
+  //Transaction description
+  description: "UFCTEST",
   //Proxy URL if needed
   proxyURL: "",
 };
