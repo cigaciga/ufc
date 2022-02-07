@@ -17,20 +17,15 @@ class Ufc {
     this.apiURL = "ecommerce.ufc.ge";
     this.apiPath = "/ecomm2/MerchantHandler";
     this.apiPathClient = "/ecomm2/ClientHandler";
-    this.currency = "981";
-    this.language = "GE";
-    this.description = "UFCTEST";
-
-    if (config) {
-      this.proxyURL = config.proxyURL;
-      this.certFile = fs.readFileSync(
-        path.resolve(process.cwd(), config.certFile)
-      );
-      this.passphrase = config.passphrase;
-      this.currency = config.currency;
-      this.language = config.language;
-      this.description = config.description;
-    }
+    this.currency = config && config.currency ? config.currency : "981"; // GEL;
+    this.language = config && config.language ? config.language : "GE";
+    this.description =
+      config && config.description ? config.description : "UFCTEST";
+    this.proxyURL = config.proxyURL;
+    this.certFile = fs.readFileSync(
+      path.resolve(process.cwd(), config.certFile)
+    );
+    this.passphrase = config.passphrase;
   }
 
   getTransactionStatus(transId) {
