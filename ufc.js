@@ -14,9 +14,13 @@ class Ufc {
    * @param  {[type]} config [description]
    */
   constructor(config) {
-    this.apiURL = "ecommerce.ufc.ge";
-    this.apiPath = "/ecomm2/MerchantHandler";
-    this.apiPathClient = "/ecomm2/ClientHandler";
+    this.apiURL = config && config.apiURL ? config.apiURL : "ecommerce.ufc.ge";
+    this.apiPath =
+      config && config.apiPath ? config.apiPath : "/ecomm2/MerchantHandler";
+    this.apiPathClient =
+      config && config.apiPathClient
+        ? config.apiPathClient
+        : "/ecomm2/ClientHandler";
     this.currency = config && config.currency ? config.currency : "981"; // GEL;
     this.language = config && config.language ? config.language : "GE";
     this.description =
