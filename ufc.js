@@ -14,6 +14,13 @@ class Ufc {
    * @param  {[type]} config [description]
    */
   constructor(config) {
+    this.apiURL = "ecommerce.ufc.ge";
+    this.apiPath = "/ecomm2/MerchantHandler";
+    this.apiPathClient = "/ecomm2/ClientHandler";
+    this.currency = "981";
+    this.language = "GE";
+    this.description = "UFCTEST";
+
     if (config) {
       this.proxyURL = config.proxyURL;
       this.certFile = fs.readFileSync(
@@ -24,13 +31,6 @@ class Ufc {
       this.language = config.language;
       this.description = config.description;
     }
-    this.apiURL = "ecommerce.ufc.ge";
-    this.apiPath = "/ecomm2/MerchantHandler";
-    this.apiPathClient = "/ecomm2/ClientHandler";
-    this.passphrase = process.env.CERT_PASSPHRASE;
-    this.currency = "981";
-    this.language = "GE";
-    this.description = "UFCTEST";
   }
 
   getTransactionStatus(transId) {
@@ -264,7 +264,7 @@ class Ufc {
       throw error;
     });
   }
-  
+
   registerRecurringTransaction(data) {
     return new Promise((resolve, reject) => {
       let postData = querystring.stringify({
