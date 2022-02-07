@@ -264,6 +264,137 @@ class Ufc {
       throw error;
     });
   }
+  
+  registerRecurringTransaction(data) {
+    return new Promise((resolve, reject) => {
+      let postData = querystring.stringify({
+        command: "p",
+        amount: data.amount,
+        currency: data.currency || this.currency,
+        client_ip_addr: data.clientIP,
+        language: data.language || this.language,
+        description: data.description || this.description,
+        msg_type: "AUTH",
+        biller_client_id: data.billerClientId,
+        expiry: data.expiry,
+      });
+
+      var options = {
+        hostname: this.apiURL,
+        port: this.apiPort,
+        path: this.apiPath,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Length": Buffer.byteLength(postData),
+        },
+        pfx: this.certFile,
+        passphrase: this.passphrase,
+        agent: this.proxyURL ? new HttpsProxyAgent(this.proxyURL) : null,
+        rejectUnauthorized: false,
+      };
+
+      var req = https.request(options, function (res) {
+        console.log(`STATUS: ${res.statusCode}`);
+        let data = [];
+        res.on("data", (d) => {
+          data.push(d);
+        });
+
+        res.on("end", () => {
+          let d = Buffer.concat(data).toString();
+          console.log(`BODY: ${d}`);
+          if (d.includes("TRANSACTION_ID")) {
+            resolve(d.toString().split(":")[1].trim());
+          } else {
+            return reject(new Error(d));
+          }
+        });
+
+        res.on("error", (e) => {
+          console.log(e);
+          return reject(e);
+        });
+      });
+      req.on("timeout", (e) => {
+        console.log(e);
+        return reject(e);
+      });
+      req.on("error", (e) => {
+        console.log(e);
+        return reject(e);
+      });
+      req.write(postData);
+      req.end();
+    }).catch((error) => {
+      console.log(error);
+      throw error;
+    });
+  }
+  chargeCard(data) {
+    return new Promise((resolve, reject) => {
+      let postData = querystring.stringify({
+        command: "e",
+        amount: data.amount,
+        currency: data.currency || this.currency,
+        client_ip_addr: data.clientIP,
+        language: data.language || this.language,
+        description: data.description || this.description,
+        biller_client_id: data.billerClientId,
+      });
+
+      var options = {
+        hostname: this.apiURL,
+        port: this.apiPort,
+        path: this.apiPath,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Length": Buffer.byteLength(postData),
+        },
+        pfx: this.certFile,
+        passphrase: this.passphrase,
+        agent: this.proxyURL ? new HttpsProxyAgent(this.proxyURL) : null,
+        rejectUnauthorized: false,
+      };
+
+      var req = https.request(options, function (res) {
+        console.log(`STATUS: ${res.statusCode}`);
+        let data = [];
+        res.on("data", (d) => {
+          data.push(d);
+        });
+
+        res.on("end", () => {
+          let d = Buffer.concat(data).toString();
+          console.log(`BODY: ${d}`);
+          if (d.includes("TRANSACTION_ID")) {
+            resolve(d.toString().split(":")[1].trim());
+          } else {
+            return reject(new Error(d));
+          }
+        });
+
+        res.on("error", (e) => {
+          console.log(e);
+          return reject(e);
+        });
+      });
+      req.on("timeout", (e) => {
+        console.log(e);
+        return reject(e);
+      });
+      req.on("error", (e) => {
+        console.log(e);
+        return reject(e);
+      });
+      req.write(postData);
+      req.end();
+    }).catch((error) => {
+      console.log(error);
+      throw error;
+    });
+  }
 }
 
 export default Ufc;
