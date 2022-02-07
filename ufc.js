@@ -21,6 +21,7 @@ class Ufc {
       config && config.apiPathClient
         ? config.apiPathClient
         : "/ecomm2/ClientHandler";
+    this.apiPort = 18443;
     this.currency = config && config.currency ? config.currency : "981"; // GEL;
     this.language = config && config.language ? config.language : "GE";
     this.description =
@@ -275,7 +276,8 @@ class Ufc {
         description: data.description || this.description,
         msg_type: "AUTH",
         biller_client_id: data.billerClientId,
-        expiry: data.expiry,
+        perspayee_expiry: data.expiry,
+        perspayee_gen: 1,
       });
 
       var options = {
