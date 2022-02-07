@@ -267,9 +267,8 @@ class Ufc {
 
   registerRecurringTransaction(data) {
     return new Promise((resolve, reject) => {
-      let postData = querystring.stringify({
+      let postData = {
         command: "p",
-        amount: data.amount,
         currency: data.currency || this.currency,
         client_ip_addr: data.clientIP,
         language: data.language || this.language,
@@ -278,7 +277,8 @@ class Ufc {
         biller_client_id: data.billerClientId,
         perspayee_expiry: data.expiry,
         perspayee_gen: 1,
-      });
+      };
+      if (data.amount) postData.amount = data.amount;
 
       var options = {
         hostname: this.apiURL,
@@ -287,7 +287,7 @@ class Ufc {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          "Content-Length": Buffer.byteLength(postData),
+          "Content-Length": Buffer.byteLength(querystring.stringify(postData)),
         },
         pfx: this.certFile,
         passphrase: this.passphrase,
