@@ -280,6 +280,7 @@ class Ufc {
       };
       if (data.amount) postData.amount = data.amount;
 
+      let postDataString = querystring.stringify(postData);
       var options = {
         hostname: this.apiURL,
         port: this.apiPort,
@@ -287,7 +288,7 @@ class Ufc {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          "Content-Length": Buffer.byteLength(querystring.stringify(postData)),
+          "Content-Length": Buffer.byteLength(postDataString),
         },
         pfx: this.certFile,
         passphrase: this.passphrase,
@@ -325,7 +326,7 @@ class Ufc {
         console.log(e);
         return reject(e);
       });
-      req.write(postData);
+      req.write(postDataString);
       req.end();
     }).catch((error) => {
       console.log(error);
