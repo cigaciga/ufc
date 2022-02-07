@@ -1,6 +1,6 @@
 {
   "name": "ufc-ecommerce",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "TBC Bank payment service node.js client",
   "main": "ufc.js",
   "scripts": {
