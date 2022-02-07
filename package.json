@@ -20,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/cigaciga/ufc/issues"
   },
-  "homepage": "https://github.com/cigaciga/ufc#readme"
+  "homepage": "https://github.com/cigaciga/ufc#readme",
+  "type": "module"
 }
